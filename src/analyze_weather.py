@@ -22,8 +22,6 @@ def analyse_weather(path, start=None, end=None, min_temp=None):
     if min_temp is not None:
         weather = weather[weather["temperature_2m"]>=min_temp]
 
-    
-
     temp_min = weather["temperature_2m"].min()
     temp_max = weather["temperature_2m"].max()
     temp_avg = weather["temperature_2m"].mean()
