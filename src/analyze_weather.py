@@ -5,13 +5,16 @@ def analyse_weather(path, start=None, end=None, min_temp=None):
 
     weather = pd.read_csv(path)
 
-    weather["time"] = pd.to_datetime(weather["time"], unit="ms")
-    print(weather["time"].head())
+    weather["time"] = pd.to_numeric(weather["time"], errors = "coerce")
+    weather["time"] = pd.to_datetime(weather["time"], unit = "ms", errors = "coerce")
+    weather = weather.dropna(subset = ["time"])
+
+ #   print(weather["time"].head())
 
 
     if start is not None:
         time_start = pd.to_datetime(start)
-        print(time_start)
+ #       print(time_start)
 
         weather = weather[weather["time"] >= time_start] 
 
