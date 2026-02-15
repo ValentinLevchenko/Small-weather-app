@@ -19,4 +19,13 @@
 | **wind_direction_10m** | Wind direction measured at 10 meters above the ground. (0/360 = North, 90 = East, 180 = South, 270 = West ) | deg |
 | **wind_speed_10m** | Wind speed measured at 10 meters above the ground. | km/h |
 
+## Dockerfile
+
+On a créé un Dockerfile pour garantir un environnement d'exécution stable, reproductible et indépendant de la machine locale.
+
+On a utilisé l'image officielle "python:3.11-slim" comme base. c'est une version légère et permet de réduire la taille de l'image finale. Ensuite, on défini le dossier principale où le code sera exécuté à l'intérieur du conteneur, où on commencera par installer la bibliothèque "pandas".
+
+On copie les dossiers "src" et "data" dans le conteneur pour qu'on puisse accéder aux données nécessaires à l'analyse. Enfin, on a défini la commande "CMD" pour que le script s'exécute automatiquement au démarrage du conteneur.
+
+
 
