@@ -36,7 +36,7 @@ def analyse_weather(path, start=None, end=None, min_temp=None):
     cc_monthly = weather.groupby("month")["cloud_cover"].mean()
 
     print("\nThe temperature values:")
-    print("  min  |  max   |  avg  ")
+    print(" min  |  max   |  avg  ")
     print(f"{temp_min:.3f} | {temp_max:.3f} | {temp_avg:.3f}")
 
     print(f"\nMean relative humidity at 2 meters above ground: {humi_avg:.3f}")
