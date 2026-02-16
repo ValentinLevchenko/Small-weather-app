@@ -93,12 +93,17 @@ Monthly mean cloud cover:
 
 2023-07: 59.503
 
-2023-08: 58.191
+2023-08: 57.717
 
-2023-09: 46.003
 
-2023-10: 71.669
+## Links
 
-2023-11: 81.401
+M1 Team Board: https://github.com/orgs/master-csmi/projects/61/views/1
 
-2023-12: 89.369
+Issues (closed): https://github.com/master-csmi/weather-analysis-mmv2/issues?q=is%3Aissue%20state%3Aclosed
+
+Merged PRs (closed): https://github.com/master-csmi/weather-analysis-mmv2/pulls?q=is%3Apr+is%3Aclosed
+
+## Retrospective
+
+The project structure and issue-driven workflow allowed for straightforward implementation. No major challenges occured, with the main progress blockers being troubleshoooting and the setup of the GitHub Actions workflow. The remaining tasks were completed rather quickly. Overall, the project development process was clear, and the dividing the work into smaller issues and distributing them effectively among the collaborators helped keep the work organised and efficient.
