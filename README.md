@@ -55,24 +55,21 @@ Run the container:
 docker run --rm weather-analysis
 ```
 
+Example of usage with filters:
+```
+docker run --rm weather-analysis python src/analyze_weather.py --start 2023-04-01 --end 2023-08-31 --min-temp 0
+```
+
 ## Example of expected output 
 
 The temperature values:
- min  |  max   |  avg  
-0.000 | 35.500 | 13.285
+  min  |  max   |  avg  
+0.200 | 35.500 | 17.707
 
-Mean relative humidity at 2 meters above ground: 74.017
-Maximum wind speed at 10 meters above ground: 43.300
+Mean relative humidity at 2 meters above ground: 67.802
+Maximum wind speed at 10 meters above ground: 35.000
 
 Monthly mean cloud cover:
-
-2022-12: 96.000
-
-2023-01: 86.973
-
-2023-02: 72.907
-
-2023-03: 82.537
 
 2023-04: 71.774
 
