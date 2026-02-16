@@ -20,7 +20,7 @@ jobs:
                 python-version: "3.11"
 
             - name: Install dependencies
-              run: pip install pandas
+              run: pip install pandas matplotlib
 
             - name: Run the script
               run: python src/analyze_weather.py
