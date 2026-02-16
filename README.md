@@ -14,6 +14,14 @@
 - the maximum value for `wind_speed_10m`;
 - monthly aggregate values for `cloud_cover`.
 
+## Weather Trend Plot
+
+The script generates a temperature trend plot saved in `results/temperature_2m_trend.png`
+
+Example output:
+
+![Temperature Trend](results/temperature_2m_trend.png)
+
 
 ## Dockerfile
 
@@ -27,15 +35,19 @@ The required library (`pandas`) is installed, and the default `CMD` is set to en
 
 
 ## Local run instructions
-For the project root, execute: 
+From the project root, execute: 
 ```
-python src/analyze_weather.py --input data/weather_hourly.csv --start 2023-01-01
+python src/analyze_weather.py
+``` 
+Or run with filters:
+```
+python src/analyze_weather.py --input data/weather_hourly.csv --start 2023-01-01 --end 2023-08-31 --min-temp 0
 ```
 
-With:
+Arguments:
 * `--input`: the path to the CSV file to be analyzed (`data/weather_hourly.csv` is used by default)
 
-Options:
+Filter options:
 * `--start`: starting date from which the calculation begins
 * `--end`: ending date at which the calculation stops
 * `--min-temp`: minimum temperature required to be included in the calculation
@@ -63,10 +75,12 @@ docker run --rm weather-analysis python src/analyze_weather.py --start 2023-04-0
 ## Example of expected output 
 
 The temperature values:
+
   min  |  max   |  avg  
 0.200 | 35.500 | 17.707
 
 Mean relative humidity at 2 meters above ground: 67.802
+
 Maximum wind speed at 10 meters above ground: 35.000
 
 Monthly mean cloud cover:
@@ -88,14 +102,3 @@ Monthly mean cloud cover:
 2023-11: 81.401
 
 2023-12: 89.369
-
-
-## Weather Trend Plot
-
-The script generates a temperature trend plot saved in:
-
-`results/temperature_2m_trend.png`
-
-Example output:
-
-![Temperature Trend](results/temperature_2m_trend.png)
