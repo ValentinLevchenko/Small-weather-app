@@ -15,12 +15,11 @@ def analyse_weather(path, start=None, end=None, min_temp=None):
     if start is not None:
         time_start = pd.to_datetime(start)
  #       print(time_start)
-
         weather = weather[weather["time"] >= time_start] 
 
     if end is not None:
         time_end = pd.to_datetime(end)
-        weather = weather[weather["time"] < time_end] 
+        weather = weather[weather["time"] <= time_end] 
         
     if min_temp is not None:
         weather = weather[weather["temperature_2m"] >= min_temp]
@@ -33,27 +32,35 @@ def analyse_weather(path, start=None, end=None, min_temp=None):
     
     wind_max = weather["wind_speed_10m"].max()
 
+    weather["month"] = weather["time"].dt.to_period("M")
+    cc_monthly = weather.groupby("month")["cloud_cover"].mean()
+
     print("\nThe temperature values:")
     print("  min  |  max   |  avg  ")
     print(f"{temp_min:.3f} | {temp_max:.3f} | {temp_avg:.3f}")
 
-    print(f"Mean relative humidity at 2 meters above ground: {humi_avg:.3f}")
+    print(f"\nMean relative humidity at 2 meters above ground: {humi_avg:.3f}")
     print(f"Maximum wind speed at 10 meters above ground: {wind_max:.3f}\n")
+
+    print("Monthly mean cloud cover:")
+    for month, value in cc_monthly.items():
+        print(f"{month}: {value:.3f}")
+    print("")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Weather analysis script")
+    parser = argparse.ArgumentParser(description = "Weather analysis script")
 
-    parser.add_argument("--input", required=True, help = "Path to input CSV file")
+    parser.add_argument("--input", default = "data/weather_hourly.csv", help = "Path to input CSV file")
 
-    parser.add_argument("--start", help="Start date")
-    parser.add_argument("--end", help="End date")
-    parser.add_argument("--min-temp", type = float , help="Minimum temperature filter")
+    parser.add_argument("--start", help = "Start date")
+    parser.add_argument("--end", help = "End date")
+    parser.add_argument("--min-temp", type = float , help = "Minimum temperature filter")
 
     args = parser.parse_args()
 
-    if args.start is None and args.end is None and args.min_temp is None:
-        parser.error("You must provide at least one filter among the following options : --start, --end, --min-temp")
+#    if args.start is None and args.end is None and args.min_temp is None:
+#        parser.error("You must provide at least one filter among the following options : --start, --end, --min-temp")
 
     analyse_weather(args.input, args.start, args.end, args.min_temp)
 

@@ -5,46 +5,89 @@
 
 **Goal:** Build a small reproducible weather analysis workflow from an hourly CSV dataset and document how to run it locally and with Docker.
 
-## Data description
 
-| **Column** | **Description** | **Unit** |
-| :--- | :--- | :--- |
-| **cloud_cover** | Total cloud cover as a percentage of the sky. (0 = clear sky, 100 = fully overcast) | % |
-| **diffuse_radiation** | Solar radiation reaching the ground that has been scattered by the atmosphere. | W/m² |
-| **direct_radiation** | Solar radiation reaching the ground directly from the sun. | W/m² |
-| **relative_humidity_2m** | Relative humidity at 2 meters above the ground. | % |
-| **surface_pressure** | Atmospheric pressure at the surface. | hPa |
-| **temperature_2m** | Air temperature measured at 2 meters above the ground. | deg C |
-| **time** | Date and time of the observation in Unix timestamp format. | Milliseconds (ms) |
-| **wind_direction_10m** | Wind direction measured at 10 meters above the ground. (0/360 = North, 90 = East, 180 = South, 270 = West ) | deg |
-| **wind_speed_10m** | Wind speed measured at 10 meters above the ground. | km/h |
+## Analysis script
 
-## Instructions for running
-At the base of the project execute : 
-```
-python src/analyze_weather.py --input data/weather_hourly.csv --start 2023-01-01
-```
-With:
-* --input: the link to the csv file that we want to read (mandatory !)
-options: (At least one)
-* --start: starting date from where we want to run the calculation
-* --end: ending date from where we want to stop the calculation
-* --min-temp : minumium temperature required to be part of the calculation
+`src/analyze_weather.py` contains a Python script that by means of `pandas` library computes and outputs the following information:
+- minimum, maximum and average values for the `temperature_2m` field of the dataset;
+- the mean value for `relative_humidity_2m`;
+- the maximum value for `wind_speed_10m`;
+- monthly aggregate values for `cloud_cover`.
 
-Please note that in the file weather_hourly.csv the date stop around the end of 2023.
 
 ## Dockerfile
 
-We created a Dockerfile to produice a stable and reproductible execution environment.
+We created a Dockerfile to produce a stable and reproductible execution environment.
 
-We used the official image "python:3.11-slim" has a base.
+We used the official image `python:3.11-slim` as the base. This light version allows to reduce the size of the final image. 
 
-This lite version allow to reduce the size of the final image. 
+We then defined the working directory and copied `src` and `data` folders into the container. 
 
-Then we defined the main folder containing the code. 
-
-Then the "src" and "data folders were copied in the conteneur. 
-
-To execute everything, we had to install the library "pandas" as well as the "CMD" for the automation of the execution of the script every time we start the container.
+The required library (`pandas`) is installed, and the default `CMD` is set to enable automatic execution of the analysis script whenever the container starts.
 
 
+## Local run instructions
+For the project root, execute: 
+```
+python src/analyze_weather.py --input data/weather_hourly.csv --start 2023-01-01
+```
+
+With:
+* `--input`: the path to the CSV file to be analyzed (`data/weather_hourly.csv` is used by default)
+
+Options:
+* `--start`: starting date from which the calculation begins
+* `--end`: ending date at which the calculation stops
+* `--min-temp`: minimum temperature required to be included in the calculation
+
+Please note that data in `data/weather_hourly.csv` covers approximately the period between 1st January 2023 and 31st December 2023.
+
+
+## Running with Docker
+
+Build the image:
+```
+docker build -t weather-analysis .
+```
+
+Run the container:
+```
+docker run --rm weather-analysis
+```
+
+## Example of expected output 
+
+The temperature values:
+ min  |  max   |  avg  
+0.000 | 35.500 | 13.285
+
+Mean relative humidity at 2 meters above ground: 74.017
+Maximum wind speed at 10 meters above ground: 43.300
+
+Monthly mean cloud cover:
+
+2022-12: 96.000
+
+2023-01: 86.973
+
+2023-02: 72.907
+
+2023-03: 82.537
+
+2023-04: 71.774
+
+2023-05: 63.672
+
+2023-06: 36.842
+
+2023-07: 59.503
+
+2023-08: 58.191
+
+2023-09: 46.003
+
+2023-10: 71.669
+
+2023-11: 81.401
+
+2023-12: 89.369
