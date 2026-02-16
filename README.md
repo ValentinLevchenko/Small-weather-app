@@ -32,3 +32,11 @@ options: (At least one)
 * --min-temp : minumium temperature required to be part of the calculation
 
 Please note that in the file weather_hourly.csv the date stop around the end of 2023.
+
+## Dockerfile
+
+We created a Dockerfile to produice a stable and reproductible execution environment.
+
+We used the official image "python:3.11-slim" has a base. This lite version allow to reduce the size of the final image. Then we defined the main folder containing the code. Then the "src" and "data folders were copied in the conteneur. To execute everything, we had to install the library "pandas" as well as the "CMD" for the automation of the execution of the script every time we start the container.
+
+
