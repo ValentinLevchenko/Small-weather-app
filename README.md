@@ -6,22 +6,14 @@
 **Goal:** Build a small reproducible weather analysis workflow from an hourly CSV dataset and document how to run it locally and with Docker.
 
 
+## Analysis script
 
-## Instructions for running
-For the project root, execute: 
-```
-python src/analyze_weather.py --input data/weather_hourly.csv --start 2023-01-01
-```
+`src/analyze_weather.py` contains a Python script that by means of `pandas` library computes and outputs the following information:
+- minimum, maximum and average values for the `temperature_2m` field of the dataset;
+- the mean value for `relative_humidity_2m`;
+- the maximum value for `wind_speed_10m`;
+- monthly aggregate values for `cloud_cover`.
 
-With:
-* `--input`: the path to the CSV file to be analyzed (`data/weather_hourly.csv` is used by default)
-
-Options:
-* `--start`: starting date from which the calculation begins
-* `--end`: ending date at which the calculation stops
-* `--min-temp` : minumum temperature required to be included in the calculation
-
-Please note that data in `data/weather_hourly.csv` covers approximately the period between 1st January 2023 and 31st December 2023.
 
 ## Dockerfile
 
@@ -34,3 +26,68 @@ We then defined the working directory and copied `src` and `data` folders into t
 The required library (`pandas`) is installed, and the default `CMD` is set to enable automatic execution of the analysis script whenever the container starts.
 
 
+## Local run instructions
+For the project root, execute: 
+```
+python src/analyze_weather.py --input data/weather_hourly.csv --start 2023-01-01
+```
+
+With:
+* `--input`: the path to the CSV file to be analyzed (`data/weather_hourly.csv` is used by default)
+
+Options:
+* `--start`: starting date from which the calculation begins
+* `--end`: ending date at which the calculation stops
+* `--min-temp`: minimum temperature required to be included in the calculation
+
+Please note that data in `data/weather_hourly.csv` covers approximately the period between 1st January 2023 and 31st December 2023.
+
+
+## Running with Docker
+
+Build the image:
+```
+docker build -t weather-analysis .
+```
+
+Run the container:
+```
+docker run --rm weather-analysis
+```
+
+## Example of expected output 
+
+The temperature values:
+ min  |  max   |  avg  
+0.000 | 35.500 | 13.285
+
+Mean relative humidity at 2 meters above ground: 74.017
+Maximum wind speed at 10 meters above ground: 43.300
+
+Monthly mean cloud cover:
+
+2022-12: 96.000
+
+2023-01: 86.973
+
+2023-02: 72.907
+
+2023-03: 82.537
+
+2023-04: 71.774
+
+2023-05: 63.672
+
+2023-06: 36.842
+
+2023-07: 59.503
+
+2023-08: 58.191
+
+2023-09: 46.003
+
+2023-10: 71.669
+
+2023-11: 81.401
+
+2023-12: 89.369
