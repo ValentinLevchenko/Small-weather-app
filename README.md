@@ -79,4 +79,23 @@ Monthly mean cloud cover:
 
 2023-07: 59.503
 
-2023-08: 57.717
+2023-08: 58.191
+
+2023-09: 46.003
+
+2023-10: 71.669
+
+2023-11: 81.401
+
+2023-12: 89.369
+
+
+## Weather Trend Plot
+
+The script generates a temperature trend plot saved in:
+
+`results/temperature_2m_trend.png`
+
+Example output:
+
+![Temperature Trend](results/temperature_2m_trend.png)

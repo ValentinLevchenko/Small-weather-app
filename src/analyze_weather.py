@@ -1,5 +1,7 @@
 import pandas as pd
 import argparse
+import os
+import matplotlib.pyplot as plt
 
 def analyse_weather(path, start=None, end=None, min_temp=None):
 
@@ -47,6 +49,27 @@ def analyse_weather(path, start=None, end=None, min_temp=None):
         print(f"{month}: {value:.3f}")
     print("")
 
+    plot_temperature_trend(weather)
+
+
+def plot_temperature_trend(weather, out_path="results/temperature_2m_trend.png"):
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+
+    # sort by time to make the line nice
+    weather = weather.sort_values("time")
+
+    plt.figure()
+    plt.plot(weather["time"], weather["temperature_2m"])
+    plt.xlabel("Time")
+    plt.ylabel("Temperature (°C)")
+    plt.title("Temperature at 2m Over Time")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig(out_path)
+    plt.close()
+
+    print(f"Plot saved to {out_path}")
+
 
 def main():
     parser = argparse.ArgumentParser(description = "Weather analysis script")
@@ -66,3 +89,5 @@ def main():
 
 if __name__=='__main__':
     main()
+
+
