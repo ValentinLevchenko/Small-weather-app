@@ -19,13 +19,32 @@
 | **wind_direction_10m** | Wind direction measured at 10 meters above the ground. (0/360 = North, 90 = East, 180 = South, 270 = West ) | deg |
 | **wind_speed_10m** | Wind speed measured at 10 meters above the ground. | km/h |
 
+## Instructions for running
+At the base of the project execute : 
+```
+python src/analyze_weather.py --input data/weather_hourly.csv --start 2023-01-01
+```
+With:
+* --input: the link to the csv file that we want to read (mandatory !)
+options: (At least one)
+* --start: starting date from where we want to run the calculation
+* --end: ending date from where we want to stop the calculation
+* --min-temp : minumium temperature required to be part of the calculation
+
+Please note that in the file weather_hourly.csv the date stop around the end of 2023.
+
 ## Dockerfile
 
-On a créé un Dockerfile pour garantir un environnement d'exécution stable, reproductible et indépendant de la machine locale.
+We created a Dockerfile to produice a stable and reproductible execution environment.
 
-On a utilisé l'image officielle "python:3.11-slim" comme base. c'est une version légère et permet de réduire la taille de l'image finale. Ensuite, on défini le dossier principale où le code sera exécuté à l'intérieur du conteneur, où on commencera par installer la bibliothèque "pandas".
+We used the official image "python:3.11-slim" has a base.
 
-On copie les dossiers "src" et "data" dans le conteneur pour qu'on puisse accéder aux données nécessaires à l'analyse. Enfin, on a défini la commande "CMD" pour que le script s'exécute automatiquement au démarrage du conteneur.
+This lite version allow to reduce the size of the final image. 
 
+Then we defined the main folder containing the code. 
+
+Then the "src" and "data folders were copied in the conteneur. 
+
+To execute everything, we had to install the library "pandas" as well as the "CMD" for the automation of the execution of the script every time we start the container.
 
 
