@@ -8,33 +8,29 @@
 
 
 ## Instructions for running
-At the base of the project execute : 
+For the project root, execute: 
 ```
 python src/analyze_weather.py --input data/weather_hourly.csv --start 2023-01-01
 ```
 
 With:
-* --input: the path to the CSV file that we want to read
+* `--input`: the path to the CSV file to be analyzed (`data/weather_hourly.csv` is used by default)
 
 Options:
-* --start: starting date from where we want to run the calculation
-* --end: ending date from where we want to stop the calculation
-* --min-temp : minumum temperature required to be part of the calculation
+* `--start`: starting date from which the calculation begins
+* `--end`: ending date at which the calculation stops
+* `--min-temp` : minumum temperature required to be included in the calculation
 
-Please note that in the file weather_hourly.csv the date stop around the end of 2023.
+Please note that data in `data/weather_hourly.csv` covers approximately the period between 1st January 2023 and 31st December 2023.
 
 ## Dockerfile
 
-We created a Dockerfile to produice a stable and reproductible execution environment.
+We created a Dockerfile to produce a stable and reproductible execution environment.
 
-We used the official image "python:3.11-slim" has a base.
+We used the official image `python:3.11-slim` as the base. This light version allows to reduce the size of the final image. 
 
-This lite version allow to reduce the size of the final image. 
+We then defined the working directory and copied `src` and `data` folders into the container. 
 
-Then we defined the main folder containing the code. 
-
-Then the "src" and "data folders were copied in the conteneur. 
-
-To execute everything, we had to install the library "pandas" as well as the "CMD" for the automation of the execution of the script every time we start the container.
+The required library (`pandas`) is installed, and the default `CMD` is set to enable automatic execution of the analysis script whenever the container starts.
 
 
