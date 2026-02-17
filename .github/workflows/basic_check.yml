@@ -33,7 +33,7 @@ jobs:
             - name: Test check
               run: |
                 source .venv/bin/activate
-                weather-cli check_dataset --input data/weather_hourly.csv 
+                weather-cli check_data --input data/weather_hourly.csv 
             
             - uses : actions/upload-artifact@v6
               with : 
