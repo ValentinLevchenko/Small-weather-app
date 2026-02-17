@@ -1,0 +1,13 @@
+[build-system] # PEP 517 build configuration section.
+requires = ["setuptools>=68", "wheel"] # Build-time packages needed to create sdist/wheel.
+build-backend = "setuptools.build_meta" # Backend that implements the package build hooks.
+
+[project] # Core package metadata used by installers and indexes.
+name = "weather-app" # Distribution name users install with pip.
+version = "0.1.0" # Initial semantic version for the package release.
+description = "Mini weather analysis app for M1 course" # Short project summary shown in package metadata.
+requires-python = ">=3.10" # Minimum Python interpreter version supported by the project.
+dependencies = ["pandas>=2.0"] # Runtime dependencies installed with the package.
+
+[project.scripts] # Console command entry points exported at installation time.
+weather-cli = "weather_app.cli:main" # Creates `weather-cli` command mapped to weather_app.cli.main().
