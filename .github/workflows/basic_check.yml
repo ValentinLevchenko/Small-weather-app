@@ -28,7 +28,7 @@ jobs:
             - name: Test summary
               run: |
                 source .venv/bin/activate
-                weather-cli summary --input data/weather_hourly.csv --start 2023-04-01 --end 2023-08-31 >> "$GITHUB_OUTPUT"
+                weather-cli summary --input data/weather_hourly.csv --start 2023-04-01 --end 2023-08-31
 #                cat toto.txt >> "$GITHUB_OUTPUT"
 
 #            - uses: actions/upload-artifact@v6
