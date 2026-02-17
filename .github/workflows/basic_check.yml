@@ -35,11 +35,11 @@ jobs:
                 source venv/bin/activate
                 weather-cli check --input data/weather_hourly.csv 
             
-            - uses : actions/upload_artificat@v6
+            - uses : actions/upload-artifact@v6
               with : 
-                name : my-artificat 
+                name : my-artifact 
                 path: |
-                  temperature_2m_trend.png
+                  results/temperature_2m_trend.png
             
             - name: Test code 
               run: |
