@@ -28,7 +28,7 @@ jobs:
             - name: Test summary
               run: |
                 source .venv/bin/activate
-                weather-cli summary --input data/weather_hourly.csv --start 2023-01-01 --end 2023-01-31 >> "GITHUB_INPUT"
+                weather-cli summary --input data/weather_hourly.csv --start 2023-01-01 --end 2023-01-31 >> "$GITHUB_OUTPUT"
 
             - name: Test check
               run: |
