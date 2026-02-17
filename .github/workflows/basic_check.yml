@@ -22,17 +22,17 @@ jobs:
             - name: Install venv
               run: |
                 python -m venv .venv
-                source venv/bin/activate
+                source .venv/bin/activate
                 pip install .
 
             - name: Test summary
               run: |
-                source venv/bin/activate
+                source .venv/bin/activate
                 weather-cli summary --input data/weather_hourly.csv --start 2023-01-01 --end 2023-01-31 >> "GITHUB_INPUT"
 
             - name: Test check
               run: |
-                source venv/bin/activate
+                source .venv/bin/activate
                 weather-cli check --input data/weather_hourly.csv 
             
             - uses : actions/upload-artifact@v6
@@ -43,6 +43,6 @@ jobs:
             
             - name: Test code 
               run: |
-                source venv/bin/activate
+                source .venv/bin/activate
                 pytest
             
