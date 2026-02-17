@@ -1,54 +1,52 @@
-name: Run weather analysis
+  name: Run weather analysis
 
-on:
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
+  on:
+      push:
+          branches: [main]
+      pull_request:
+          branches: [main]
 
-jobs:
-    build:
-        runs-on: ubuntu-latest
-    
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-            
-            - name: Set up Python
-              uses: actions/setup-python@v5
-              with:
-                python-version: "3.11"
+  jobs:
+      build:
+          runs-on: ubuntu-latest
+      
+          steps:
+              - name: Checkout repository
+                uses: actions/checkout@v4
+              
+              - name: Set up Python
+                uses: actions/setup-python@v5
+                with:
+                  python-version: "3.11"
 
-            - name: Install Venv
-              run: |
-                python -m venv .venv
-                source .venv/bin/activate
-                pip install . pytest
+              - name: Install Venv
+                run: |
+                  python -m venv .venv
+                  source .venv/bin/activate
+                  pip install . pytest
 
-            - name: Test summary
-              run: |
-                source .venv/bin/activate
-                weather-cli summary --input data/weather_hourly.csv --start 2023-04-01 --end 2023-08-31 >> "$GITHUB_STEP_SUMMARY"
-#                cat toto.txt >> "$GITHUB_STEP_SUMMARY"
+              - name: Test summary
+                run: |
+                  source .venv/bin/activate
+                  weather-cli summary --input data/weather_hourly.csv --start 2023-04-01 --end 2023-08-31 >> "$GITHUB_STEP_SUMMARY"
+  #                cat toto.txt >> "$GITHUB_STEP_SUMMARY"
 
-#            - uses: actions/upload-artifact@v6
-#              with: 
-#                name: my-artifact
-#                path: |
-#                  toto.png
-#                  tutu.png
+              - name: Test check
+                run: |
+                  source .venv/bin/activate
+                  weather-cli check-data --input data/weather_hourly.csv
 
-            - name: Test check
-              run: |
-                source .venv/bin/activate
-                weather-cli check-data --input data/weather_hourly.csv
+              - name: Test plot
+                run: |
+                  source .venv/bin/activate
+                  weather-cli plot --input data/weather_hourly.csv
 
-            - name: Test plot
-              run: |
-                source .venv/bin/activate
-                weather-cli plot --input data/weather_hourly.csv
+              - uses: actions/upload-artifact@v6
+                with: 
+                  name: my-artifact
+                  path: results/temperature_2m_trend.png
 
-            - name: Test code
-              run: |
-                source .venv/bin/activate
-                pytest
+              - name: Test code
+                run: |
+                  source .venv/bin/activate
+                  pytest
