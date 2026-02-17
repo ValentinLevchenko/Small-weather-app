@@ -1,1 +1,5 @@
 data/test.csv
+.venv/
+weather_app.egg-info/
+poetry.lock
+__pycache__

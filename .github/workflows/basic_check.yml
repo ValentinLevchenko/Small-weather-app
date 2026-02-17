@@ -19,8 +19,30 @@ jobs:
               with:
                 python-version: "3.11"
 
-            - name: Install dependencies
-              run: pip install pandas matplotlib
+            - name: Install venv
+              run: |
+                python -m venv .venv
+                source venv/bin/activate
+                pip install .
 
-            - name: Run the script
-              run: python src/analyze_weather.py
+            - name: Test summary
+              run: |
+                source venv/bin/activate
+                weather-cli summary --input data/weather_hourly.csv --start 2023-01-01 --end 2023-01-31 >> "GITHUB_INPUT"
+
+            - name: Test check
+              run: |
+                source venv/bin/activate
+                weather-cli check --input data/weather_hourly.csv 
+            
+            - uses : actions/upload_artificat@v6
+              with : 
+                name : my-artificat 
+                path: |
+                  temperature_2m_trend.png
+            
+            - name: Test code 
+              run: |
+                source venv/bin/activate
+                pytest
+            
