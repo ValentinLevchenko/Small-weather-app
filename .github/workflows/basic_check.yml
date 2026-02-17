@@ -19,8 +19,36 @@ jobs:
               with:
                 python-version: "3.11"
 
-            - name: Install dependencies
-              run: pip install pandas matplotlib
+            - name: Install Venv
+              run: |
+                python -m venv .venv
+                source .venv/bin/activate
+                pip install . pytest
 
-            - name: Run the script
-              run: python src/analyze_weather.py
+            - name: Test summary
+              run: |
+                source .venv/bin/activate
+                weather-cli summary --input data/weather_hourly.csv --start 2023-04-01 --end 2023-08-31 >> "$GITHUB_OUTPUT"
+#                cat toto.txt >> "$GITHUB_OUTPUT"
+
+#            - uses: actions/upload-artifact@v6
+#              with: 
+#                name: my-artifact
+#                path: |
+#                  toto.png
+#                  tutu.png
+
+            - name: Test check
+              run: |
+                source .venv/bin/activate
+                weather-cli check-data --input data/weather_hourly.csv
+
+            - name: Test plot
+              run: |
+                source .venv/bin/activate
+                weather-cli plot --input data/weather_hourly.csv
+
+            - name: Test code
+              run: |
+                source .venv/bin/activate
+                pytest

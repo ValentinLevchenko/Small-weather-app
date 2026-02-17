@@ -47,7 +47,6 @@ def analyse_weather(path, start=None, end=None, min_temp=None):
     print("Monthly mean cloud cover:")
     for month, value in cc_monthly.items():
         print(f"{month}: {value:.3f}")
-    print("")
 
     plot_temperature_trend(weather)
 
@@ -68,7 +67,7 @@ def plot_temperature_trend(weather, out_path="results/temperature_2m_trend.png")
     plt.savefig(out_path)
     plt.close()
 
-    print(f"Plot saved to {out_path}")
+#    print(f"\nPlot saved to {out_path}")
 
 
 def check_dataset(input):

@@ -1,5 +1,6 @@
 import argparse
-from weather_app.analysis import analyse_weather, check_dataset
+import pandas as pd
+from weather_app.analysis import analyse_weather, check_dataset, plot_temperature_trend
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -14,6 +15,10 @@ def build_parser() -> argparse.ArgumentParser:
     check = subparsers.add_parser("check-data", help="Validate input dataset")
     check.add_argument("--input", required=True, help="Path to weather CSV")
 
+    plot = subparsers.add_parser("plot", help="Plot temperature trend")
+    plot.add_argument("--input", required=True, help="Path to weather CSV")
+    plot.add_argument("--output", default = "results/temperature_2m_trend.png", help="Path to store the plot")
+
     return parser
 
 
@@ -27,6 +32,10 @@ def main() -> None:
     elif args.command == "check-data":
         report = check_dataset(args.input)
         print(report)
+    elif args.command == "plot":
+        df = pd.read_csv(args.input)
+        plot_temperature_trend(df, out_path=args.output)
+        print(f"Plot saved to {args.output}")
 
 
 if __name__ == "__main__":
