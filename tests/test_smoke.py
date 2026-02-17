@@ -1,2 +1,2 @@
-def smoke():
+def test_import(): 
     import weather_app
