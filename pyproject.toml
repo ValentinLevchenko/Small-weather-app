@@ -10,4 +10,4 @@ requires-python = ">=3.10" # Minimum Python interpreter version supported by the
 dependencies = ["pandas>=2.0"] # Runtime dependencies installed with the package.
 
 [project.scripts] # Console command entry points exported at installation time.
-weather-cli = "weather_app.cli:main" # Creates `weather-cli` command mapped to weather_app.cli.main().
+weather-cli = "weather_app.cli:main" # Creates `weather-cli` command mapped to weather_app.cli.main().git 

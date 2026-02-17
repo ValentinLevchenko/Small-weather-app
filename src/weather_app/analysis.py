@@ -71,6 +71,21 @@ def plot_temperature_trend(weather, out_path="results/temperature_2m_trend.png")
     print(f"Plot saved to {out_path}")
 
 
+def check_dataset(input):
+
+    try:
+        df = pd.read_csv(input)
+        required = ["temperature_2m", "relative_humidity_2m", "wind_speed_10m", "cloud_cover", "time"]
+        missing = [item for item in required if item not in df.columns]
+
+        if missing:
+            return f"Data invalid"
+        else:
+            return f"Data valid"
+    except Exception as e:
+        return f"Data check failed: {e}"
+
+
 def main():
     parser = argparse.ArgumentParser(description = "Weather analysis script")
 
