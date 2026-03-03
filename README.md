@@ -72,6 +72,24 @@ Example of usage with filters:
 docker run --rm weather-analysis python src/analyze_weather.py --start 2023-04-01 --end 2023-08-31 --min-temp 0
 ```
 
+## Run dashboard locally
+
+Start by creating a python environment : 
+```
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
+```
+Then go to the corresponding folder
+```
+cd src/weather_app
+```
+And run the app
+```
+python dash_app.py
+```
+If the port is already taken on your machine please change the port number in the file src/weather_app/dash_app.py in the line 69.
+
 ## Example of expected output 
 
 The temperature values:

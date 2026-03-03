@@ -10,7 +10,12 @@ requires-python = ">=3.10" # Minimum Python interpreter version supported by the
 dependencies = [
     "pandas>=2.0",
     "matplotlib>=3.5.3",
-    "pytest>=6.2.5"
+    "plotly",
+    "numpy",
+    "scipy",
+    "pytest>=6.2.5",
+    "dash",
+    "dash-bootstrap-components"
     ] # Runtime dependencies installed with the package.
 
 [project.scripts] # Console command entry points exported at installation time.
