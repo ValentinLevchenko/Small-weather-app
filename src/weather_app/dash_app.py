@@ -9,7 +9,7 @@ METRICS = {
     "surface_pressure": "Surface Pressure (hPa)",
 }
 
-df = pd.read_csv("../../data/weather_hourly.csv")
+df = pd.read_csv("data/weather_hourly.csv")
 df["time"] = pd.to_datetime(df["time"], unit="ms", errors="coerce")
 df = df.dropna(subset=["time"]).sort_values("time")
 
@@ -66,4 +66,4 @@ def update_dashboard(start_date, end_date, metric):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8050)
+    app.run(host="0.0.0.0",debug=True, port=8050)
